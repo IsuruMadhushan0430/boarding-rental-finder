@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const propertyRoutes = require("./routes/propertyRoutes");
 const imageRoutes = require("./routes/imageRoutes");
+const publicPropertyRoutes = require("./routes/publicPropertyRoutes");
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
 app.use("/api/images", imageRoutes);
+app.use("/api/public/properties", publicPropertyRoutes);
 
 // Test API
 app.get("/api/health", (req, res) => {
