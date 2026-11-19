@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/landlord/Dashboard";
 import AddProperty from "./pages/landlord/AddProperty";
 import EditProperty from "./pages/landlord/EditProperty";
+import PropertyListings from "./pages/public/PropertyListings";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
@@ -48,6 +49,10 @@ function Home() {
         </div>
       )}
 
+      <Link to="/properties" className="text-gray-700 hover:text-blue-600" >
+        Find Boarding
+      </Link>
+
     </div>
   );
 }
@@ -89,6 +94,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/properties" element={<PropertyListings />} />
 
       </Routes>
     </BrowserRouter>
