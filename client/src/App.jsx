@@ -6,6 +6,7 @@ import Dashboard from "./pages/landlord/Dashboard";
 import AddProperty from "./pages/landlord/AddProperty";
 import EditProperty from "./pages/landlord/EditProperty";
 import PropertyListings from "./pages/public/PropertyListings";
+import PropertyDetails from "./pages/public/PropertyDetails";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
@@ -96,6 +97,7 @@ function App() {
         />
 
         <Route path="/properties" element={<PropertyListings />} />
+        <Route path="/properties/:id" element={<PropertyDetails />} />
 
       </Routes>
     </BrowserRouter>
