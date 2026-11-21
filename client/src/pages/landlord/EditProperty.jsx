@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import API from "../../services/api";
+import LocationPicker from "../../components/property/LocationPicker";
 
 const facilitiesList = [
   "Wi-Fi",
@@ -43,6 +44,10 @@ const EditProperty = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null,
+  });
   const [selectedImages, setSelectedImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -73,6 +78,10 @@ const EditProperty = () => {
             ...property.location,
           },
           images: Array.isArray(property.images) ? property.images : [],
+        });
+        setCoordinates({
+          lat: property.location?.coordinates?.lat ?? null,
+          lng: property.location?.coordinates?.lng ?? null,
         });
       } catch (err) {
         setError(
@@ -169,6 +178,14 @@ const EditProperty = () => {
       return;
     }
 
+    if (
+      !Number.isFinite(coordinates.lat) ||
+      !Number.isFinite(coordinates.lng)
+    ) {
+      setError("Please select the property location on the map.");
+      return;
+    }
+
     try {
       setSaving(true);
       const token = sessionStorage.getItem("token");
@@ -184,6 +201,10 @@ const EditProperty = () => {
           ...formData,
           price: Number(formData.price),
           availableRooms: Number(formData.availableRooms),
+          location: {
+            ...formData.location,
+            coordinates,
+          },
         },
         config
       );
@@ -387,6 +408,7 @@ const EditProperty = () => {
                 required
                 className="w-full border p-3 rounded-lg"
               />
+              <LocationPicker value={coordinates} onChange={setCoordinates} />
             </div>
           </section>
 

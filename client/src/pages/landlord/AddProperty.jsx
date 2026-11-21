@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../../services/api";
+import LocationPicker from "../../components/property/LocationPicker";
 
 const facilitiesList = [
   "Wi-Fi",
@@ -32,6 +33,11 @@ const AddProperty = () => {
     },
     availableRooms: 1,
     genderPreference: "Any",
+  });
+
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null,
   });
 
   const [loading, setLoading] = useState(false);
@@ -88,6 +94,14 @@ const AddProperty = () => {
       return;
     }
 
+    if (
+      !Number.isFinite(coordinates.lat) ||
+      !Number.isFinite(coordinates.lng)
+    ) {
+      alert("Please select the property location on the map.");
+      return;
+    }
+
     try {
       setLoading(true);
 
@@ -99,6 +113,10 @@ const AddProperty = () => {
           ...formData,
           price: Number(formData.price),
           availableRooms: Number(formData.availableRooms),
+          location: {
+            ...formData.location,
+            coordinates,
+          },
         },
         {
           headers: {
@@ -395,6 +413,8 @@ const AddProperty = () => {
                 required
                 className="w-full border p-3 rounded-lg"
               />
+
+              <LocationPicker value={coordinates} onChange={setCoordinates} />
 
             </div>
           </section>

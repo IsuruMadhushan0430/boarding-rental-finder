@@ -7,6 +7,8 @@ import AddProperty from "./pages/landlord/AddProperty";
 import EditProperty from "./pages/landlord/EditProperty";
 import PropertyListings from "./pages/public/PropertyListings";
 import PropertyDetails from "./pages/public/PropertyDetails";
+import MyInquiries from "./pages/MyInquiries";
+import LandlordInquiries from "./pages/LandlordInquiries";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
@@ -54,6 +56,10 @@ function Home() {
         Find Boarding
       </Link>
 
+      <Link to="/my-inquiries">
+        My Inquiries
+      </Link>
+
     </div>
   );
 }
@@ -98,6 +104,24 @@ function App() {
 
         <Route path="/properties" element={<PropertyListings />} />
         <Route path="/properties/:id" element={<PropertyDetails />} />
+
+        <Route
+          path="/my-inquiries"
+          element={
+            <ProtectedRoute allowedRoles={["seeker"]}>
+              <MyInquiries />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/landlord/inquiries"
+          element={
+            <ProtectedRoute allowedRoles={["landlord"]}>
+              <LandlordInquiries />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>

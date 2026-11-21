@@ -9,6 +9,7 @@ const propertyRoutes = require("./routes/propertyRoutes");
 const imageRoutes = require("./routes/imageRoutes");
 const publicPropertyRoutes = require("./routes/publicPropertyRoutes");
 const propertyDetailsRoutes = require("./routes/propertyDetailsRoutes");
+const inquiryRoutes = require("./routes/inquiryRoutes");
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use("/api/properties", propertyRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/public/properties", publicPropertyRoutes);
 app.use("/api/public/property-details", propertyDetailsRoutes);
+app.use("/api/inquiries", inquiryRoutes);
 
 // Test API
 app.get("/api/health", (req, res) => {

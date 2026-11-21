@@ -2,6 +2,16 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import API from "../../services/api";
+import InquiryForm from "../../components/property/InquiryForm";
+
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
+
+import "leaflet/dist/leaflet.css";
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -236,20 +246,52 @@ const PropertyDetails = () => {
             </section>
 
             {/* Location */}
-            <section className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-bold mb-4">
-                Location
-              </h2>
+            
+          <section className="bg-white rounded-xl p-6 shadow-sm">
+            <h2 className="text-xl font-bold mb-4">
+              Property Location
+            </h2>
 
-              <p className="text-gray-600">
-                {property.location?.address}
-              </p>
+            <p className="text-gray-600 mb-4">
+              {property.location?.address},{" "}
+              {property.location?.city},{" "}
+              {property.location?.district}, Sri Lanka
+            </p>
 
-              <p className="text-gray-600 mt-2">
-                {property.location?.city},{" "}
-                {property.location?.district}, Sri Lanka
+            {property.location?.coordinates?.lat != null &&
+            property.location?.coordinates?.lng != null ? (
+              <MapContainer
+                center={[
+                  property.location.coordinates.lat,
+                  property.location.coordinates.lng,
+                ]}
+                zoom={15}
+                scrollWheelZoom={false}
+                className="w-full h-80 rounded-xl z-0"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+
+                <Marker
+                  position={[
+                    property.location.coordinates.lat,
+                    property.location.coordinates.lng,
+                  ]}
+                >
+                  <Popup>
+                    {property.title}
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            ) : (
+              <p className="text-gray-500 bg-gray-50 p-4 rounded-lg">
+                Map location has not been added for this property.
               </p>
-            </section>
+            )}
+          </section>
+
 
           </div>
 
@@ -298,6 +340,10 @@ const PropertyDetails = () => {
                 Always verify property details before making
                 a payment.
               </p>
+
+              {property && (
+                <InquiryForm propertyId={property._id} />
+              )}
             </div>
           </aside>
 

@@ -119,6 +119,10 @@ const Dashboard = () => {
             + Add Property
           </Link>
 
+          <Link to="/landlord/inquiries">
+            Received Inquiries
+          </Link>
+
         </div>
 
         {error && (
