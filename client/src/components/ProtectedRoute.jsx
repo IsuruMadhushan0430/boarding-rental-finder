@@ -16,7 +16,15 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     allowedRoles &&
     !allowedRoles.includes(user.role)
   ) {
-    return <Navigate to="/" replace />;
+    const dashboardPath =
+      user.role === "admin"
+        ? "/admin/dashboard"
+        : user.role === "landlord"
+          ? "/landlord/dashboard"
+          : user.role === "seeker"
+            ? "/my-inquiries"
+            : "/";
+    return <Navigate to={dashboardPath} replace />;
   }
 
   return children;

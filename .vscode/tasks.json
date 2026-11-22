@@ -13,6 +13,179 @@
 			],
 			"isBackground": false,
 			"problemMatcher": []
+		},
+		{
+			"label": "Create admin account",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && set \"ADMIN_NAME=Admin Isuru\" && set \"ADMIN_EMAIL=admin123@gmail.com\" && set \"ADMIN_PHONE=0717075848\" && set \"ADMIN_PASSWORD=16302Bimk\" && npm run create-admin"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build client",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\client && npm run build"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Reset and verify admin account",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && set \"ADMIN_NAME=Admin Isuru\" && set \"ADMIN_EMAIL=admin123@gmail.com\" && set \"ADMIN_PHONE=0717075848\" && set \"ADMIN_PASSWORD=16302Bimk\" && npm run create-admin"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Start API server",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && npm start"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Verify admin login",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"curl.exe -s -X POST http://localhost:5000/api/auth/login -H \"Content-Type: application/json\" -d \"{\\\"email\\\":\\\"admin123@gmail.com\\\",\\\"password\\\":\\\"16302Bimk\\\"}\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Test login JSON body",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"curl.exe -i -X POST \"http://localhost:5000/api/auth/login\" -H \"Content-Type: application/json\" --data-binary \"{\"email\":\"admin123@gmail.com\",\"password\":\"16302Bimk\"}\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Verify admin login with PowerShell",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$body = @{ email = 'admin123@gmail.com'; password = '16302Bimk' } | ConvertTo-Json; Invoke-RestMethod -Method Post -Uri 'http://localhost:5000/api/auth/login' -ContentType 'application/json' -Body $body | ConvertTo-Json -Depth 5"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Verify login with Node fetch",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"node -e \"fetch('http://localhost:5000/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:'admin123@gmail.com',password:'16302Bimk'})}).then(async r=>console.log(r.status,await r.text()))\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Reset and verify admin password",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && set \"ADMIN_NAME=Admin Isuru\" && set \"ADMIN_EMAIL=admin123@gmail.com\" && set \"ADMIN_PHONE=0717075848\" && set \"ADMIN_PASSWORD=16302Bimk\" && npm run create-admin"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Reset admin account",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && npm run create-admin -- name=\"Admin Isuru\" email=\"admin123@gmail.com\" phone=\"0717075848\" password=\"16302Bimk\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Build role routing changes",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\client && npm run build"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Test admin HTTP login",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"curl.exe --json \"{\\\"email\\\":\\\"admin123@gmail.com\\\",\\\"password\\\":\\\"16302Bimk\\\"}\" http://localhost:5000/api/auth/login"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Verify admin API login",
+			"type": "shell",
+			"command": "cmd.exe",
+			"args": [
+				"/d",
+				"/c",
+				"cd /d D:\\projects\\boarding-rental-finder\\server && npm run verify-admin-login -- email=\"admin123@gmail.com\" password=\"16302Bimk\""
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
 		}
 	]
 }

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import API from "../../services/api";
 import InquiryForm from "../../components/property/InquiryForm";
+import ReportProperty from "../../components/property/ReportProperty";
+import { useAuth } from "../../context/AuthContext";
 
 import {
   MapContainer,
@@ -15,6 +17,7 @@ import "leaflet/dist/leaflet.css";
 
 const PropertyDetails = () => {
   const { id } = useParams();
+  const { user } = useAuth();
 
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -343,6 +346,10 @@ const PropertyDetails = () => {
 
               {property && (
                 <InquiryForm propertyId={property._id} />
+              )}
+
+              {user?.role === "seeker" && (
+                <ReportProperty propertyId={property._id} />
               )}
             </div>
           </aside>

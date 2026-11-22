@@ -37,13 +37,14 @@ const Register = () => {
     try {
       setLoading(true);
 
-      await register(formData);
+      const data = await register(formData);
+      const registeredRole = data.user?.role || formData.role;
 
-      navigate(
-        formData.role === "landlord"
-          ? "/landlord/dashboard"
-          : "/"
-      );
+      if (registeredRole === "landlord") {
+        navigate("/landlord/dashboard");
+      } else {
+        navigate("/my-inquiries");
+      }
 
     } catch (err) {
       setError(

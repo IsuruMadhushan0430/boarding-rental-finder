@@ -9,57 +9,60 @@ import PropertyListings from "./pages/public/PropertyListings";
 import PropertyDetails from "./pages/public/PropertyDetails";
 import MyInquiries from "./pages/MyInquiries";
 import LandlordInquiries from "./pages/LandlordInquiries";
+import AdminReports from "./pages/AdminReports";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProperties from "./pages/AdminProperties";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import SiteNavbar from "./components/SiteNavbar";
 import { useAuth } from "./context/AuthContext";
 
 function Home() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-100">
-
-      <h1 className="text-4xl font-bold text-blue-700">
-        BoardingHub
-      </h1>
-
+    <div className="min-h-[calc(100vh-65px)] flex flex-col items-center justify-center bg-slate-100 px-4 text-center">
+      <h1 className="text-4xl font-bold text-blue-700">BoardingHub</h1>
       {user ? (
-        <>
-          <p className="mt-4">
-            Welcome, {user.name}
-          </p>
-
-          <p className="text-gray-500">
-            Role: {user.role}
-          </p>
-
-          <button
-            onClick={logout}
-            className="mt-5 bg-red-600 text-white px-6 py-2 rounded-lg"
-          >
-            Logout
-          </button>
-        </>
-      ) : (
-        <div className="mt-6 flex gap-4">
-          <a href="/login" className="text-blue-700">
-            Login
-          </a>
-
-          <a href="/register" className="text-blue-700">
-            Register
-          </a>
+        <div className="mt-4">
+          <p className="text-lg font-semibold text-slate-800">Welcome, {user.name}</p>
+          <p className="mt-1 text-sm text-slate-500 capitalize">{user.role} dashboard</p>
         </div>
+      ) : (
+        <p className="mt-3 text-slate-600">Find a boarding place or manage rental listings.</p>
       )}
 
-      <Link to="/properties" className="text-gray-700 hover:text-blue-600" >
-        Find Boarding
-      </Link>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <Link to="/properties" className="rounded-lg bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800">
+          Find Properties
+        </Link>
 
-      <Link to="/my-inquiries">
-        My Inquiries
-      </Link>
-
+        {user?.role === "seeker" && (
+          <Link to="/my-inquiries" className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700">
+            My Inquiries
+          </Link>
+        )}
+        {user?.role === "landlord" && (
+          <>
+            <Link to="/landlord/dashboard" className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700">
+              Landlord Dashboard
+            </Link>
+            <Link to="/landlord/inquiries" className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700">
+              Received Inquiries
+            </Link>
+          </>
+        )}
+        {user?.role === "admin" && (
+          <>
+            <Link to="/admin/dashboard" className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700">
+              Admin Dashboard
+            </Link>
+            <Link to="/admin/reports" className="rounded-lg border border-blue-700 px-5 py-3 font-semibold text-blue-700">
+              Property Reports
+            </Link>
+          </>
+        )}
+      </div>
     </div>
   );
 }
@@ -67,6 +70,7 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
+      <SiteNavbar />
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -119,6 +123,33 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["landlord"]}>
               <LandlordInquiries />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/reports"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminReports />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/properties"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminProperties />
             </ProtectedRoute>
           }
         />

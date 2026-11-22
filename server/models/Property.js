@@ -108,11 +108,29 @@ const propertySchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-  },
-  {
-    timestamps: true,
-  }
-);
+
+    adminNote: {
+      type: String,
+      trim: true,
+      maxlength: 1000,
+      default: "",
+    },
+
+    reviewedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
+    reviewedAt: {
+      type: Date,
+      default: null,
+    },
+      },
+      {
+        timestamps: true,
+      }
+  );
 
 module.exports = mongoose.model(
   "Property",

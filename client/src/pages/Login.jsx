@@ -35,6 +35,8 @@ const Login = () => {
         navigate("/landlord/dashboard");
       } else if (data.user.role === "admin") {
         navigate("/admin/dashboard");
+      } else if (data.user.role === "seeker") {
+        navigate("/my-inquiries");
       } else {
         navigate("/");
       }
