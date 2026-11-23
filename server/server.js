@@ -12,6 +12,7 @@ const propertyDetailsRoutes = require("./routes/propertyDetailsRoutes");
 const inquiryRoutes = require("./routes/inquiryRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const adminPropertyRoutes = require("./routes/adminPropertyRoutes");
+const adminUserRoutes = require("./routes/adminUserRoutes");
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/api/public/property-details", propertyDetailsRoutes);
 app.use("/api/inquiries", inquiryRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/admin/properties", adminPropertyRoutes);
+app.use("/api/admin/users", adminUserRoutes);
 
 // Test API
 app.get("/api/health", (req, res) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getAllReports } from "../services/reportService";
 
@@ -85,6 +85,19 @@ function AdminDashboard() {
           >
             Property Management
           </Link>
+
+          <NavLink
+            to="/admin/users"
+            className={({ isActive }) =>
+              `block rounded-lg px-4 py-3 ${
+                isActive
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-600 hover:bg-gray-100"
+              }`
+            }
+          >
+            User Management
+          </NavLink>
 
         </nav>
 

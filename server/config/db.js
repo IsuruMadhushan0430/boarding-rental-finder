@@ -25,6 +25,7 @@ const connectDB = async () => {
       console.error(
         "MongoDB Atlas rejected the connection. Verify Network Access and cluster access in the same Atlas project."
       );
+      console.error("Atlas error:", message);
     } else if (/timed out|server selection/i.test(message)) {
       console.error(
         "MongoDB connection timed out. Verify Atlas Network Access, cluster status, cluster hostname, and internet/DNS access."

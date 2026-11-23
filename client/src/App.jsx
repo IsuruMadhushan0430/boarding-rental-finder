@@ -12,6 +12,7 @@ import LandlordInquiries from "./pages/LandlordInquiries";
 import AdminReports from "./pages/AdminReports";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminProperties from "./pages/AdminProperties";
+import AdminUsers from "./pages/AdminUsers";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import SiteNavbar from "./components/SiteNavbar";
@@ -150,6 +151,15 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <AdminProperties />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminUsers />
             </ProtectedRoute>
           }
         />
