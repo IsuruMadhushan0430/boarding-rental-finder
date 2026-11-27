@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import StatCard from "../components/StatCard";
 import {
   getReceivedInquiries,
   updateInquiryStatus,
@@ -120,13 +121,13 @@ function LandlordInquiries() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 
-        <StatCard title="Total Inquiries" value={total} />
+        <StatCard title="Total Inquiries" value={total} icon="message" tone="blue" />
 
-        <StatCard title="Pending" value={pending} />
+        <StatCard title="Pending" value={pending} icon="clock" tone="amber" />
 
-        <StatCard title="Responded" value={responded} />
+        <StatCard title="Responded" value={responded} icon="check" tone="green" />
 
-        <StatCard title="Closed" value={closed} />
+        <StatCard title="Closed" value={closed} icon="archive" tone="slate" />
 
       </div>
 
@@ -271,18 +272,6 @@ function LandlordInquiries() {
 
       )}
 
-    </div>
-  );
-}
-
-function StatCard({ title, value }) {
-  return (
-    <div className="bg-white border rounded-xl p-5 shadow-sm">
-      <p className="text-gray-500 text-sm">{title}</p>
-
-      <h2 className="text-3xl font-bold mt-2">
-        {value}
-      </h2>
     </div>
   );
 }

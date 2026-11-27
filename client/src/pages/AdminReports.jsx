@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import StatCard from "../components/StatCard";
 import {
   getAllReports,
   updateReportStatus,
@@ -145,23 +146,29 @@ function AdminReports() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
 
-        <SummaryCard
+        <StatCard
           title="Total Reports"
           value={reports.length}
+          icon="flag"
+          tone="blue"
         />
 
-        <SummaryCard
+        <StatCard
           title="Pending Reports"
           value={pendingCount}
+          icon="clock"
+          tone="amber"
         />
 
-        <SummaryCard
+        <StatCard
           title="Action Taken"
           value={
             reports.filter(
               (report) => report.status === "Action Taken"
             ).length
           }
+          icon="shield"
+          tone="rose"
         />
 
       </div>
@@ -368,15 +375,6 @@ function AdminReports() {
         </div>
       )}
 
-    </div>
-  );
-}
-
-function SummaryCard({ title, value }) {
-  return (
-    <div className="border bg-white rounded-xl p-5 shadow-sm">
-      <p className="text-gray-500 text-sm">{title}</p>
-      <h2 className="text-3xl font-bold mt-2">{value}</h2>
     </div>
   );
 }

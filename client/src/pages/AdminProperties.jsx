@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import StatCard from "../components/StatCard";
 import {
   getAdminProperties,
   getAdminPropertyStats,
@@ -177,11 +177,11 @@ function AdminProperties() {
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
 
-        <StatCard title="Total" value={stats.total} />
-        <StatCard title="Pending" value={stats.pending} />
-        <StatCard title="Approved" value={stats.approved} />
-        <StatCard title="Rejected" value={stats.rejected} />
-        <StatCard title="Rented" value={stats.rented} />
+        <StatCard title="Total" value={stats.total} icon="building" tone="blue" />
+        <StatCard title="Pending" value={stats.pending} icon="clock" tone="amber" />
+        <StatCard title="Approved" value={stats.approved} icon="check" tone="green" />
+        <StatCard title="Rejected" value={stats.rejected} icon="x" tone="rose" />
+        <StatCard title="Rented" value={stats.rented} icon="home" tone="purple" />
 
       </div>
 
@@ -472,15 +472,6 @@ function AdminProperties() {
         </div>
       )}
 
-    </div>
-  );
-}
-
-function StatCard({ title, value }) {
-  return (
-    <div className="border rounded-xl p-4 bg-white shadow-sm">
-      <p className="text-gray-500 text-sm">{title}</p>
-      <h2 className="text-2xl font-bold mt-2">{value}</h2>
     </div>
   );
 }

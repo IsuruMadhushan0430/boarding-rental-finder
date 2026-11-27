@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import StatCard from "../components/StatCard";
 import { useAuth } from "../context/AuthContext";
 import { getAllReports } from "../services/reportService";
 
 function AdminDashboard() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -45,76 +46,15 @@ function AdminDashboard() {
   const dismissed = reports.filter((report) => report.status === "Dismissed").length;
 
   const cards = [
-    { label: "Total Reports", value: reports.length, tone: "bg-blue-50 text-blue-700", border: "border-blue-100" },
-    { label: "Pending", value: pending, tone: "bg-yellow-50 text-yellow-700", border: "border-yellow-100" },
-    { label: "Reviewed", value: reviewed, tone: "bg-indigo-50 text-indigo-700", border: "border-indigo-100" },
-    { label: "Action Taken", value: actionTaken, tone: "bg-red-50 text-red-700", border: "border-red-100" },
+    { label: "Total Reports", value: reports.length, icon: "flag", tone: "blue" },
+    { label: "Pending", value: pending, icon: "clock", tone: "amber" },
+    { label: "Reviewed", value: reviewed, icon: "eye", tone: "indigo" },
+    { label: "Action Taken", value: actionTaken, icon: "shield", tone: "rose" },
   ];
 
   return (
     <div className="min-h-screen bg-slate-100">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 bg-slate-900 text-white md:flex md:flex-col">
-        <div className="px-6 py-6 border-b border-slate-800">
-          <h1 className="text-xl font-bold">BoardingHub</h1>
-          <p className="text-xs text-slate-400 mt-1">Administration</p>
-        </div>
-
-        <nav className="flex-1 px-4 py-6 space-y-2">
-          <Link
-            to="/admin/dashboard"
-            className="flex items-center rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold"
-          >
-            Dashboard
-          </Link>
-          <Link
-            to="/admin/reports"
-            className="flex items-center rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-white"
-          >
-            Property Reports
-          </Link>
-          <Link
-            to="/properties"
-            className="flex items-center rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-white"
-          >
-            View Properties
-          </Link>
-
-          <Link
-            to="/admin/properties"
-            className="flex items-center rounded-lg px-4 py-3 text-sm text-slate-300 hover:bg-slate-800 hover:text-white"
-          >
-            Property Management
-          </Link>
-
-          <NavLink
-            to="/admin/users"
-            className={({ isActive }) =>
-              `block rounded-lg px-4 py-3 ${
-                isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
-              }`
-            }
-          >
-            User Management
-          </NavLink>
-
-        </nav>
-
-        <div className="border-t border-slate-800 p-4">
-          <p className="px-2 text-sm font-medium">{user?.name}</p>
-          <p className="px-2 text-xs text-slate-400 mt-1">Administrator</p>
-          <button
-            type="button"
-            onClick={logout}
-            className="mt-4 w-full rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-300 hover:bg-slate-800"
-          >
-            Logout
-          </button>
-        </div>
-      </aside>
-
-      <main className="md:ml-64">
+      <main>
         <header className="border-b border-slate-200 bg-white px-5 py-4 md:px-8">
           <div className="mx-auto flex max-w-7xl items-center justify-between">
             <div>
@@ -154,15 +94,13 @@ function AdminDashboard() {
             <>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 {cards.map((card) => (
-                  <div
+                  <StatCard
                     key={card.label}
-                    className={`rounded-xl border ${card.border} bg-white p-5 shadow-sm`}
-                  >
-                    <p className="text-sm font-medium text-slate-500">{card.label}</p>
-                    <p className={`mt-4 inline-flex rounded-lg px-3 py-2 text-3xl font-bold ${card.tone}`}>
-                      {card.value}
-                    </p>
-                  </div>
+                    title={card.label}
+                    value={card.value}
+                    icon={card.icon}
+                    tone={card.tone}
+                  />
                 ))}
               </div>
 

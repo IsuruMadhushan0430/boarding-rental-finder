@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import StatCard from "../../components/StatCard";
 import API from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 
@@ -62,22 +63,26 @@ const Dashboard = () => {
     {
       title: "Total Properties",
       value: stats.totalProperties,
-      color: "bg-blue-100 text-blue-700",
+      icon: "building",
+      tone: "blue",
     },
     {
       title: "Approved Listings",
       value: stats.availableProperties,
-      color: "bg-green-100 text-green-700",
+      icon: "check",
+      tone: "green",
     },
     {
       title: "Pending Approval",
       value: stats.pendingProperties,
-      color: "bg-yellow-100 text-yellow-700",
+      icon: "clock",
+      tone: "amber",
     },
     {
       title: "Rented Properties",
       value: stats.rentedProperties,
-      color: "bg-purple-100 text-purple-700",
+      icon: "home",
+      tone: "purple",
     },
   ];
 
@@ -132,18 +137,13 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
           {statCards.map((card) => (
-            <div
+            <StatCard
               key={card.title}
-              className="bg-white p-6 rounded-xl shadow-sm"
-            >
-              <p className="text-gray-500">
-                {card.title}
-              </p>
-
-              <p className={`text-3xl font-bold mt-3 ${card.color} inline-block px-3 py-1 rounded-lg`}>
-                {card.value}
-              </p>
-            </div>
+              title={card.title}
+              value={card.value}
+              icon={card.icon}
+              tone={card.tone}
+            />
           ))}
 
         </div>

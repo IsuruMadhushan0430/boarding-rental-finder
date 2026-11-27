@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import API from "../../services/api";
 import PropertyCard from "../../components/property/PropertyCard";
+import homeIllustration from "../../assets/background.jpg";
 
 const facilitiesList = [
   "Wi-Fi",
@@ -153,23 +154,64 @@ const PropertyListings = () => {
     <div className="min-h-screen bg-gray-50">
 
       {/* Page Header */}
-      <div className="bg-blue-700 text-white py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Find Your Perfect Boarding Place
-          </h1>
+      <section className="relative isolate overflow-hidden border-b border-blue-100 bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-100">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 78% 18%, rgba(147, 197, 253, 0.4), transparent 28%), radial-gradient(circle at 8% 100%, rgba(191, 219, 254, 0.55), transparent 32%)",
+          }}
+        />
+        <img
+          src={homeIllustration}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 bottom-0 w-[78vw] max-w-[560px] opacity-20 mix-blend-multiply sm:opacity-35 md:right-0 md:w-[44vw] md:opacity-70"
+        />
 
-          <p className="mt-3 text-blue-100">
-            Discover boarding rooms, annexes and rental houses
-            across Sri Lanka.
-          </p>
+        <div className="relative mx-auto flex max-w-7xl items-center px-6 py-14 md:min-h-[330px] md:px-8 md:py-16">
+          <div className="max-w-2xl md:max-w-[58%]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 bg-white/70 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-blue-800 shadow-sm backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-orange-500" />
+              BoardingHub · Sri Lanka
+            </span>
+            <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl">
+              Find a place
+              <br className="hidden sm:block" /> to call home.
+            </h1>
+            <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 md:text-lg">
+              Discover boarding rooms, annexes and rental houses across Sri Lanka.
+            </p>
+            <a
+              href="#property-search"
+              className="mt-7 inline-flex items-center gap-2 rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white shadow-lg shadow-blue-900/15 transition hover:-translate-y-0.5 hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700"
+            >
+              Explore available places
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="none"
+                className="h-4 w-4"
+              >
+                <path
+                  d="M4.167 10h11.666m0 0-5-5m5 5-5 5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
       <div className="max-w-7xl mx-auto px-6 py-10">
 
         {/* Search and Filters */}
         <form
+          id="property-search"
           onSubmit={handleSearch}
           className="bg-white p-6 rounded-xl shadow-sm border mb-8"
         >

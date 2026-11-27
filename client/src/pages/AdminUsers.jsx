@@ -1,5 +1,6 @@
 
 import { useCallback, useEffect, useState } from "react";
+import StatCard from "../components/StatCard";
 import {
   getAdminUsers,
   getAdminUserStats,
@@ -158,15 +159,15 @@ function AdminUsers() {
         {/* Statistics */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
 
-          <StatCard title="Total Users" value={stats.total} />
+          <StatCard title="Total Users" value={stats.total} icon="users" tone="blue" />
 
-          <StatCard title="Landlords" value={stats.landlords} />
+          <StatCard title="Landlords" value={stats.landlords} icon="building" tone="purple" />
 
-          <StatCard title="Seekers" value={stats.seekers} />
+          <StatCard title="Seekers" value={stats.seekers} icon="user" tone="cyan" />
 
-          <StatCard title="Active Accounts" value={stats.active} />
+          <StatCard title="Active Accounts" value={stats.active} icon="check" tone="green" />
 
-          <StatCard title="Inactive Accounts" value={stats.inactive} />
+          <StatCard title="Inactive Accounts" value={stats.inactive} icon="pause" tone="slate" />
 
         </div>
 
@@ -376,17 +377,6 @@ function AdminUsers() {
 
         </div>
       </div>
-    </div>
-  );
-}
-
-function StatCard({ title, value }) {
-  return (
-    <div className="rounded-xl bg-white p-5 shadow-sm">
-      <p className="text-sm text-gray-500">{title}</p>
-      <p className="mt-2 text-2xl font-bold text-gray-900">
-        {value}
-      </p>
     </div>
   );
 }
